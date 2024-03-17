@@ -48,6 +48,19 @@ export const SignUpForm = () => {
           <SeparatorWithText>OR</SeparatorWithText>
           <FormField
             control={form.control}
+            name='name'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input {...field} disabled={isPending} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name='email'
             render={({ field }) => (
               <FormItem>
@@ -67,19 +80,6 @@ export const SignUpForm = () => {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input {...field} type='password' disabled={isPending} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled={isPending} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
