@@ -3,6 +3,7 @@
 import bcrypt from 'bcrypt';
 
 import { signUpSchema, type SignUpValues } from '@/schemas/auth';
+import { userExists } from '@/db/user';
 import { db } from '@/lib/db';
 
 export const signUp = async (
@@ -14,7 +15,7 @@ export const signUp = async (
 
   const { email, name, password } = validatedValues.data;
 
-  const existingUser = (await db.user.count({ where: { email } })) > 0;
+  const existingUser = await userExists({ email });
   if (existingUser)
     return { success: false, error: 'A user with this email already exists.' };
 
