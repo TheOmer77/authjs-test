@@ -64,7 +64,7 @@
   }
   body {
     @apply bg-background bg-[radial-gradient(circle_at_top,var(--tw-gradient-stops))]
-from-primary/30 to-primary p-4 text-foreground dark:from-primary/30
+from-primary/30 to-primary text-foreground dark:from-primary/30
 dark:to-primary/10;
   }
 }
