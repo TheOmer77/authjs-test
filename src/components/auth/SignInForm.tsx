@@ -1,10 +1,13 @@
 'use client';
 
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 
 import { SocialButtons } from './SocialButtons';
 import { FooterLink } from './FooterLink';
+import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Button';
 import { CardContent, CardFooter } from '@/components/ui/Card';
 import {
@@ -17,24 +20,31 @@ import {
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import { SeparatorWithText } from '@/components/ui/Separator';
+import { signIn } from '@/actions/signIn';
 import { signInSchema, type SignInValues } from '@/schemas/auth';
 
 export const SignInForm = () => {
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+
   const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: '', password: '' },
   });
 
   const handleSubmit = (values: SignInValues) => {
-    // TODO: Submit form
-    console.log(values);
+    setError(null);
+    startTransition(async () => {
+      const res = await signIn(values);
+      if (!res.success) return setError(res.error);
+    });
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <CardContent className='space-y-2'>
-          <SocialButtons />
+        <CardContent className='[&>:not(:last-child)]:mb-2'>
+          <SocialButtons disabled={isPending} />
           <SeparatorWithText>OR</SeparatorWithText>
           <FormField
             control={form.control}
@@ -43,7 +53,7 @@ export const SignInForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} type='email' />
+                  <Input {...field} type='email' disabled={isPending} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -56,21 +66,28 @@ export const SignInForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} type='password' />
+                  <Input {...field} type='password' disabled={isPending} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+          {error && (
+            <Alert variant='destructive' className='mt-4'>
+              <ExclamationTriangleIcon />
+              <span>{error}</span>
+            </Alert>
+          )}
         </CardContent>
         <CardFooter className='flex-col items-start gap-2'>
-          <Button type='submit' className='w-full'>
+          <Button type='submit' className='w-full' disabled={isPending}>
             Login
           </Button>
           <FooterLink
             beforeText="Don't have an account? "
             text='Sign up'
             href='/auth/sign-up'
+            disabled={isPending}
           />
         </CardFooter>
       </form>
