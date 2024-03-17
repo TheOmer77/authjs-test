@@ -1,6 +1,6 @@
 'use server';
 
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 import { signUpSchema, type SignUpValues } from '@/schemas/auth';
 import { userExists } from '@/db/user';
