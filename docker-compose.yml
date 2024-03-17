@@ -12,6 +12,7 @@ services:
       - .:/app
       - /app/node_modules
     environment:
+      - AUTH_SECRET=${AUTH_SECRET:?error}
       - DB_URL=${DB_URL:-postgres://postgres:postgres@db:5432/postgres?schema=public}
 
   db:
