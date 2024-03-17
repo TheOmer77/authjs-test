@@ -44,7 +44,7 @@ export const SignInForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <CardContent className='[&>:not(:last-child)]:mb-2'>
-          <SocialButtons disabled={isPending} />
+          <SocialButtons title='Sign in with' disabled={isPending} />
           <SeparatorWithText>OR</SeparatorWithText>
           <FormField
             control={form.control}

@@ -6,17 +6,19 @@ import { Button } from '@/components/ui/Button';
 import { GithubLogo, GoogleLogo } from '@/components/layout/logos';
 
 export type SocialButtonsProps = ComponentPropsWithoutRef<'button'> & {
+  title?: string;
   onGoogleClick?: () => void;
   onGithubClick?: () => void;
 };
 
 export const SocialButtons = ({
+  title,
   onGithubClick,
   onGoogleClick,
   ...props
 }: SocialButtonsProps) => (
   <div>
-    <div className='mb-2 text-xs text-muted-foreground'>Sign in with</div>
+    {title && <div className='mb-2 text-xs text-muted-foreground'>{title}</div>}
     <div
       className='grid grid-cols-2 gap-2 [&>button>svg]:size-4
 [&>button>svg]:shrink-0 [&>button]:gap-2'
