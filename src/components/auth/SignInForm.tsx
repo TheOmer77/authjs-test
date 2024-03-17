@@ -1,7 +1,12 @@
-import React from 'react';
-
 import { CardContent } from '@/components/ui/Card';
+import { SocialButtons } from './SocialButtons';
 
 export const SignInForm = () => {
-  return <CardContent>SignInForm TBD</CardContent>;
+  return (
+    <>
+      <CardContent>
+        <SocialButtons />
+      </CardContent>
+    </>
+  );
 };
