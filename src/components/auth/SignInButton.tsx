@@ -19,7 +19,7 @@ export const SignInButton = ({
     throw new Error('LoginButton modal not implemented yet.');
 
   const onClick = () => {
-    router.push('/auth/login');
+    router.push('/auth/sign-in');
   };
 
   return <Slot onClick={onClick}>{children}</Slot>;
