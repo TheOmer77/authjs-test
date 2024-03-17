@@ -38,15 +38,15 @@
       --card-foreground: 205 27% 99%;
       --border: 205 4% 14%;
       --input: 205 4% 14%;
-      --primary: 205 87% 40%;
-      --primary-foreground: 0 0% 100%;
+      --primary: 205 87% 60%;
+      --primary-foreground: 216 100% 2.9%;
       --secondary: 205 4% 12%;
       --secondary-foreground: 205 4% 72%;
       --accent: 205 13% 17%;
       --accent-foreground: 205 13% 98%;
-      --destructive: 3 94% 56%;
-      --destructive-foreground: 0 0% 100%;
-      --ring: 205 87% 40%;
+      --destructive: 7.7 98.4% 75.1%;
+      --destructive-foreground: 0, 100% 3.7%;
+      --ring: 205 87% 60%;
     }
   }
 }
@@ -62,7 +62,7 @@
   }
   body {
     @apply bg-background bg-[radial-gradient(circle_at_top,var(--tw-gradient-stops))]
-from-primary/30 to-primary p-4 text-foreground dark:from-primary/70
+from-primary/30 to-primary p-4 text-foreground dark:from-primary/30
 dark:to-primary/10;
   }
 }
