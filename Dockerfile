@@ -5,4 +5,4 @@ COPY package.json pnpm-lock.yaml ./
 COPY prisma prisma
 RUN corepack enable pnpm && pnpm install
 
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "run", "/dev|db:studio/"]
