@@ -6,7 +6,7 @@ export const Logo = () => (
 font-extrabold tracking-tight text-white drop-shadow-md'
   >
     <LockClosedIcon className='size-48' />
-    <div className='flex flex-col'>
+    <div className='flex flex-col items-start'>
       <span>The</span>
       <span>Auth</span>
       <span>Thing</span>
