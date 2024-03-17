@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/Button';
-import { Logo } from '@/components/layout/Logo';
+import { AppLogo } from '@/components/layout/logos';
 import { SignInButton } from '@/components/auth/SignInButton';
 
 const Home = () => (
   <main className='flex h-full flex-col items-center justify-center'>
     <div className='space-y-6 text-center'>
-      <Logo className='text-6xl text-white drop-shadow-md' />
+      <AppLogo className='text-6xl text-white drop-shadow-md' />
       <SignInButton>
         <Button
           variant='secondary'

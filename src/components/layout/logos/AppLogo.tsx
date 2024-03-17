@@ -7,7 +7,7 @@ import { LockClosedIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/lib/utils';
 
-export const Logo = forwardRef<
+export const AppLogo = forwardRef<
   ElementRef<'h1'>,
   ComponentPropsWithoutRef<'h1'>
 >(({ className, ...props }, ref) => (
@@ -28,4 +28,4 @@ tracking-tight text-primary`,
     </div>
   </h1>
 ));
-Logo.displayName = 'Logo';
+AppLogo.displayName = 'Logo';

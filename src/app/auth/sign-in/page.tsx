@@ -5,12 +5,12 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { SignInForm } from '@/components/auth/SignInForm';
-import { Logo } from '@/components/layout/Logo';
+import { AppLogo } from '@/components/layout/logos';
 
 const SignInPage = () => (
   <Card className='w-full max-w-md'>
     <CardHeader>
-      <Logo className='mb-4' />
+      <AppLogo className='mb-4' />
       <CardTitle>Welcome back!</CardTitle>
       <CardDescription>Enter your account details to continue.</CardDescription>
     </CardHeader>
