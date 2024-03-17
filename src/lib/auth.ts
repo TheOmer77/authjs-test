@@ -7,6 +7,8 @@ import authConfig from '@/config/auth';
 export const {
   handlers: { GET, POST },
   auth,
+  signIn,
+  signOut,
 } = NextAuth({
   ...authConfig,
   adapter: PrismaAdapter(db),
