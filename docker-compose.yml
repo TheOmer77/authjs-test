@@ -12,6 +12,10 @@ services:
       - .:/app
       - /app/node_modules
     environment:
+      - AUTH_GITHUB_CLIENT_ID=${AUTH_GITHUB_CLIENT_ID:?error}
+      - AUTH_GITHUB_CLIENT_SECRET=${AUTH_GITHUB_CLIENT_SECRET:?error}
+      - AUTH_GOOGLE_CLIENT_ID=${AUTH_GOOGLE_CLIENT_ID:?error}
+      - AUTH_GOOGLE_CLIENT_SECRET=${AUTH_GOOGLE_CLIENT_SECRET:?error}
       - AUTH_SECRET=${AUTH_SECRET:?error}
       - DB_URL=${DB_URL:-postgres://postgres:postgres@db:5432/postgres?schema=public}
 
