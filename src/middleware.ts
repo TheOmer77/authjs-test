@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import NextAuth from 'next-auth';
 
 import authConfig from '@/config/auth';
@@ -16,7 +17,19 @@ export default auth(req => {
     isPublicRoute = publicRoutes.includes(req.nextUrl.pathname),
     isAuthRoute = authRoutes.includes(req.nextUrl.pathname);
 
-  if (isApiAuthRoute) return;
+  if (isApiAuthRoute) {
+    // Reminder that Auth.js v5 is in beta, and as such can be pretty buggy!
+    // https://github.com/AntonioErdeljac/next-auth-v5-advanced-guide/issues/30#issuecomment-2002656647
+    if (
+      req.nextUrl.pathname.startsWith('/api/auth/auth/') &&
+      req.nextUrl.searchParams.get('error')
+    ) {
+      const url = req.nextUrl;
+      url.pathname = req.nextUrl.pathname.replace('/api/auth/', '');
+      return NextResponse.redirect(url);
+    }
+    return;
+  }
   if (isAuthRoute) {
     if (loggedIn)
       return Response.redirect(new URL(DEFAULT_SIGNIN_REDIRECT, req.nextUrl));
