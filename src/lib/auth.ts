@@ -22,6 +22,16 @@ export const {
   adapter: PrismaAdapter(db),
   session: { strategy: 'jwt' },
   callbacks: {
+    signIn: async ({ user, account }) => {
+      if (account?.provider !== 'credentials') return true;
+
+      const existingUser = await getUser({ id: user.id });
+      if (!existingUser?.emailVerified) return false;
+
+      // TODO: Add 2FA check
+
+      return true;
+    },
     jwt: async ({ token }) => {
       if (!token.sub) return token;
 
