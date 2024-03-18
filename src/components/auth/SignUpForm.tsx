@@ -88,7 +88,7 @@ export const SignUpForm = () => {
           {error && (
             <Alert variant='destructive' className='mt-4'>
               <ExclamationTriangleIcon />
-              <span>{error}</span>
+              <div>{error}</div>
             </Alert>
           )}
         </CardContent>

@@ -82,7 +82,7 @@ export const SignInForm = () => {
           {(error || urlError) && (
             <Alert variant='destructive' className='mt-4'>
               <ExclamationTriangleIcon />
-              <span>{error || urlError}</span>
+              <div>{error || urlError}</div>
             </Alert>
           )}
         </CardContent>
