@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import { signUpSchema, type SignUpValues } from '@/schemas/auth';
 import { userExists } from '@/db/user';
 import { db } from '@/lib/db';
+import { generateVerificationToken } from '@/lib/tokens';
 
 export const signUp = async (
   values: SignUpValues
@@ -24,7 +25,9 @@ export const signUp = async (
     data: { email, name, password: hashedPassword },
   });
 
-  // TODO: Send verification token email
+  const verificationToken = await generateVerificationToken(email);
+  // TODO: Send verification email
+  console.log(`Sending new verification token to ${email}`, verificationToken);
 
   return { success: true };
 };
