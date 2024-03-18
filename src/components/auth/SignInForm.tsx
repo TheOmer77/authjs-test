@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
@@ -24,8 +25,14 @@ import { signIn } from '@/actions/signIn';
 import { signInSchema, type SignInValues } from '@/schemas/auth';
 
 export const SignInForm = () => {
-  const [isPending, startTransition] = useTransition();
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'A user with this email already exists.'
+      : '';
+
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
@@ -72,10 +79,10 @@ export const SignInForm = () => {
               </FormItem>
             )}
           />
-          {error && (
+          {(error || urlError) && (
             <Alert variant='destructive' className='mt-4'>
               <ExclamationTriangleIcon />
-              <span>{error}</span>
+              <span>{error || urlError}</span>
             </Alert>
           )}
         </CardContent>
