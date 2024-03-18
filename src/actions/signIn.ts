@@ -5,6 +5,7 @@ import { AuthError } from 'next-auth';
 import { getUser } from '@/db/user';
 import { getVerificationToken } from '@/db/verificationToken';
 import { signIn as authSignIn } from '@/lib/auth';
+import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { signInSchema, type SignInValues } from '@/schemas/auth';
 import { DEFAULT_SIGNIN_REDIRECT } from '@/config/routes';
@@ -23,7 +24,7 @@ export const signIn = async (
     return { success: false, error: 'Incorrect email or password.' };
   if (!existingUser.emailVerified) {
     const existingVerificationToken = await getVerificationToken({ email });
-    // Only send new token if current one is missing or expired
+    // Only create new token if current one is missing or expired
     if (
       !existingVerificationToken ||
       existingVerificationToken.expires_at.valueOf() < new Date().valueOf()
@@ -31,7 +32,10 @@ export const signIn = async (
       const newVerificationToken = await generateVerificationToken(
         existingUser.email
       );
-      // TODO: Send verification email
+      await sendVerificationEmail(
+        newVerificationToken.email,
+        newVerificationToken.token
+      );
       console.log(
         `Sending new verification token to ${email}`,
         newVerificationToken
