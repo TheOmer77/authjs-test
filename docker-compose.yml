@@ -18,6 +18,7 @@ services:
       - AUTH_GOOGLE_CLIENT_SECRET=${AUTH_GOOGLE_CLIENT_SECRET:?error}
       - AUTH_SECRET=${AUTH_SECRET:?error}
       - DB_URL=${DB_URL:-postgres://postgres:postgres@db:5432/postgres?schema=public}
+      - MAIL_RESEND_API_KEY=${MAIL_RESEND_API_KEY:?error}
 
   db:
     image: postgres:16.2-alpine3.19
