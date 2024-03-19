@@ -15,8 +15,8 @@ import { cn } from '@/lib/utils';
 export const NewVerificationForm = () => {
   const [error, setError] = useState<string | null>(null),
     [success, setSuccess] = useState(false);
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const searchParams = useSearchParams(),
+    token = searchParams.get('token');
 
   useEffect(() => {
     if (success || error) return;
