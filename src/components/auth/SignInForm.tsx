@@ -8,7 +8,7 @@ import { OctagonAlertIcon } from 'lucide-react';
 
 import { SocialButtons } from './SocialButtons';
 import { FooterLink } from './FooterLink';
-import { Alert } from '@/components/ui/Alert';
+import { Alert, AlertText } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Button';
 import { CardContent, CardFooter } from '@/components/ui/Card';
 import {
@@ -82,7 +82,7 @@ export const SignInForm = () => {
           {(error || urlError) && (
             <Alert variant='destructive' className='mt-4'>
               <OctagonAlertIcon />
-              <div>{error || urlError}</div>
+              <AlertText>{error || urlError}</AlertText>
             </Alert>
           )}
         </CardContent>
