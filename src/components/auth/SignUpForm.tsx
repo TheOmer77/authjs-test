@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
+import { OctagonAlertIcon } from 'lucide-react';
 
 import { SocialButtons } from './SocialButtons';
 import { FooterLink } from './FooterLink';
@@ -87,7 +87,7 @@ export const SignUpForm = () => {
           />
           {error && (
             <Alert variant='destructive' className='mt-4'>
-              <ExclamationTriangleIcon />
+              <OctagonAlertIcon />
               <div>{error}</div>
             </Alert>
           )}

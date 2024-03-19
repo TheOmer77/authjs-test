@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
+import { OctagonAlertIcon } from 'lucide-react';
 
 import { SocialButtons } from './SocialButtons';
 import { FooterLink } from './FooterLink';
@@ -81,7 +81,7 @@ export const SignInForm = () => {
           />
           {(error || urlError) && (
             <Alert variant='destructive' className='mt-4'>
-              <ExclamationTriangleIcon />
+              <OctagonAlertIcon />
               <div>{error || urlError}</div>
             </Alert>
           )}

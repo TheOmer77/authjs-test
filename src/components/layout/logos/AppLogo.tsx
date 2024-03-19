@@ -3,7 +3,7 @@ import {
   type ComponentPropsWithoutRef,
   type ElementRef,
 } from 'react';
-import { LockClosedIcon } from '@radix-ui/react-icons';
+import { LockIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -20,7 +20,7 @@ tracking-tight text-primary`,
       className
     )}
   >
-    <LockClosedIcon className='size-[3.25em]' />
+    <LockIcon className='size-[3.25em]' strokeWidth={1.5} />
     <div className='flex flex-col items-start leading-none'>
       <span>The</span>
       <span>Auth</span>
