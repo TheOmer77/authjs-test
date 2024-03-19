@@ -36,10 +36,11 @@ export const signIn = async (
         newVerificationToken.email,
         newVerificationToken.token
       );
-      console.log(
-        `Sending new verification token to ${email}`,
-        newVerificationToken
-      );
+      return {
+        success: false,
+        error:
+          'Your last verification token has expired - check your email for a new one.',
+      };
     }
 
     return {
