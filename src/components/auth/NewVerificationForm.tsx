@@ -42,20 +42,20 @@ export const NewVerificationForm = () => {
       )}
     >
       {success ? (
-        <div className='mb-4 leading-none'>
+        <div className='mb-4'>
           Your email has been verified! You may now{' '}
-          <Button variant='link' className='p-0 text-base' asChild>
+          <Button variant='link' className='h-auto p-0 text-base' asChild>
             <Link href='/auth/sign-in'>sign in</Link>
           </Button>{' '}
           to your account.
         </div>
       ) : error ? (
         <>
-          <Alert variant='destructive'>
+          <Alert variant='destructive' className='mb-4'>
             <OctagonAlertIcon />
             <AlertText>{error}</AlertText>
           </Alert>
-          <Button variant='link' className='p-0' asChild>
+          <Button variant='link' className='h-auto p-0' asChild>
             <Link href='/auth/sign-in'>Sign in</Link>
           </Button>
         </>

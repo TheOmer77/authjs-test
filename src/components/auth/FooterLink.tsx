@@ -18,7 +18,12 @@ export const FooterLink = ({
 }: FooterLinkProps) => (
   <div className='text-sm text-muted-foreground'>
     {beforeText}
-    <Button {...props} variant='link' className={cn('p-0', className)} asChild>
+    <Button
+      {...props}
+      variant='link'
+      className={cn('h-auto p-0', className)}
+      asChild
+    >
       <Link href={href}>{text}</Link>
     </Button>
   </div>

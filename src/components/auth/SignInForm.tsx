@@ -86,7 +86,7 @@ export const SignInForm = () => {
             </Alert>
           )}
         </CardContent>
-        <CardFooter className='flex-col items-start gap-2'>
+        <CardFooter className='flex-col items-start gap-4'>
           <Button type='submit' className='w-full' disabled={isPending}>
             Sign in
           </Button>
