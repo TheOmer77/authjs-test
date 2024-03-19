@@ -22,7 +22,8 @@ import { reset } from '@/actions/reset';
 import { resetSchema, type ResetValues } from '@/schemas/auth';
 
 export const ResetForm = () => {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null),
+    [success, setSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<ResetValues>({
@@ -35,11 +36,17 @@ export const ResetForm = () => {
 
     startTransition(async () => {
       const res = await reset(values);
-      // if (!res.success) return setError(res.error);
+      if (!res.success) return setError(res.error);
+      setSuccess(res.success);
     });
   };
 
-  return (
+  return success ? (
+    <CardContent>
+      We&apos;ve sent a password reset link to your email, click it to reset
+      your password.
+    </CardContent>
+  ) : (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <CardContent className='[&>:not(:last-child)]:mb-2'>
