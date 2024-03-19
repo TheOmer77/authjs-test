@@ -24,8 +24,9 @@ import { signUp } from '@/actions/signUp';
 import { signUpSchema, type SignUpValues } from '@/schemas/auth';
 
 export const SignUpForm = () => {
+  const [error, setError] = useState<string | null>(null),
+    [success, setSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
@@ -37,10 +38,16 @@ export const SignUpForm = () => {
     startTransition(async () => {
       const res = await signUp(values);
       if (!res.success) return setError(res.error);
+      setSuccess(res.success);
     });
   };
 
-  return (
+  return success ? (
+    <CardContent>
+      We&apos;ve sent a confirmation link to your email, click it to verify your
+      account.
+    </CardContent>
+  ) : (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <CardContent className='[&>:not(:last-child)]:mb-2'>
