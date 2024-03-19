@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -76,6 +77,9 @@ export const SignInForm = () => {
                   <Input {...field} type='password' disabled={isPending} />
                 </FormControl>
                 <FormMessage />
+                <Button variant='link' className='h-auto p-0' asChild>
+                  <Link href='/auth/reset'>Forgot password?</Link>
+                </Button>
               </FormItem>
             )}
           />
