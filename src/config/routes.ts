@@ -4,6 +4,7 @@ export const authRoutes = [
   '/auth/sign-up',
   '/auth/error',
   '/auth/reset',
+  '/auth/new-password',
 ];
 
 export const API_AUTH_PREFIX = '/api/auth';
