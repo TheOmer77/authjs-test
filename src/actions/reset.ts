@@ -2,6 +2,8 @@
 
 import { getUser } from '@/db/user';
 import { resetSchema, type ResetValues } from '@/schemas/auth';
+import { sendPasswordResetEmail } from '@/lib/mail';
+import { generatePasswordResetToken } from '@/lib/tokens';
 
 export const reset = async (
   values: ResetValues
@@ -16,7 +18,11 @@ export const reset = async (
   if (!existingUser)
     return { success: false, error: 'A user with this email does not exist.' };
 
-  // TODO: Generate reset token & send email
+  const passwordResetToken = await generatePasswordResetToken(email);
+  await sendPasswordResetEmail(
+    passwordResetToken.email,
+    passwordResetToken.token
+  );
 
   return { success: true };
 };
