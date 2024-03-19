@@ -1,5 +1,10 @@
 export const publicRoutes = ['/', '/auth/new-verification'];
-export const authRoutes = ['/auth/sign-in', '/auth/sign-up', '/auth/error'];
+export const authRoutes = [
+  '/auth/sign-in',
+  '/auth/sign-up',
+  '/auth/error',
+  '/auth/reset',
+];
 
 export const API_AUTH_PREFIX = '/api/auth';
 export const DEFAULT_SIGNIN_REDIRECT = '/settings';

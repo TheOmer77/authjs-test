@@ -19,3 +19,6 @@ export const signUpSchema = z.object({
   name: z.string().min(1, { message: 'Name is required.' }),
 });
 export type SignUpValues = z.infer<typeof signUpSchema>;
+
+export const resetSchema = z.object({ email });
+export type ResetValues = z.infer<typeof resetSchema>;
