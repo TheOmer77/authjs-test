@@ -22,7 +22,7 @@ export const signIn = async (
   const existingUser = await getUser({ email });
   if (!existingUser || !existingUser.email || !existingUser.password)
     return { success: false, error: 'Incorrect email or password.' };
-  if (!existingUser.emailVerified) {
+  if (!existingUser.email_verified) {
     const existingVerificationToken = await getVerificationToken({ email });
     // Only create new token if current one is missing or expired
     if (

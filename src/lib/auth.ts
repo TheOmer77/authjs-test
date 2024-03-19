@@ -26,7 +26,7 @@ export const {
       if (account?.provider !== 'credentials') return true;
 
       const existingUser = await getUser({ id: user.id });
-      if (!existingUser?.emailVerified) return false;
+      if (!existingUser?.email_verified) return false;
 
       // TODO: Add 2FA check
 
@@ -52,7 +52,7 @@ export const {
     linkAccount: async ({ user }) => {
       await db.user.update({
         where: { id: user.id },
-        data: { emailVerified: new Date() },
+        data: { email_verified: new Date() },
       });
     },
   },
