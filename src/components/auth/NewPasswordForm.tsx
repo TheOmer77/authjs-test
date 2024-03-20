@@ -47,7 +47,7 @@ export const NewPasswordForm = () => {
   return success || !token ? (
     <CardContent>
       {success ? (
-        <div className='mb-4'>
+        <div>
           Your password has been reset! You may now use your new password to{' '}
           <Button variant='link' className='h-auto p-0 text-base' asChild>
             <Link href='/auth/sign-in'>sign in</Link>

@@ -42,7 +42,7 @@ export const NewVerificationForm = () => {
       )}
     >
       {success ? (
-        <div className='mb-4'>
+        <div>
           Your email has been verified! You may now{' '}
           <Button variant='link' className='h-auto p-0 text-base' asChild>
             <Link href='/auth/sign-in'>sign in</Link>
