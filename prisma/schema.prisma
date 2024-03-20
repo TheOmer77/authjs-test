@@ -13,14 +13,14 @@ enum UserRole {
 }
 
 model User {
-  id                String           @id @default(uuid()) @db.Uuid
-  email             String?          @unique
-  email_verified    DateTime?
-  password          String?
-  role              UserRole         @default(USER)
-  accounts          Account[]
-  twofactor_enabled Boolean          @default(false)
-  twofactor_secret  TwoFactorSecret?
+  id                     String                 @id @default(uuid()) @db.Uuid
+  email                  String?                @unique
+  email_verified         DateTime?
+  password               String?
+  role                   UserRole               @default(USER)
+  accounts               Account[]
+  twofactor_enabled      Boolean                @default(false)
+  twofactor_confirmation TwoFactorConfirmation?
 
   name  String?
   image String?
@@ -84,11 +84,10 @@ model TwoFactorToken {
   @@unique([email, token])
 }
 
-model TwoFactorSecret {
+model TwoFactorConfirmation {
   id      String @id @default(uuid()) @db.Uuid
   user_id String @db.Uuid
-
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
