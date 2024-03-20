@@ -11,6 +11,16 @@ const password = z
 export const signInSchema = z.object({
   email,
   password: z.string().min(1, { message: 'Password is required.' }),
+  twoFactorCode: z.optional(
+    z
+      .string()
+      .length(6, {
+        message: 'Verification code should include exactly 6 digits.',
+      })
+      .regex(/^\d+$/, {
+        message: 'Verification code should only include digits.',
+      })
+  ),
 });
 export type SignInValues = z.infer<typeof signInSchema>;
 
