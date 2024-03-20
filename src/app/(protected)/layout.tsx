@@ -1,13 +1,25 @@
 import type { PropsWithChildren } from 'react';
 import { SessionProvider } from 'next-auth/react';
 
+import { Navbar } from './navbar';
+import { Card, CardContent } from '@/components/ui/Card';
 import { auth } from '@/lib/auth';
 
 const ProtectedLayout = async ({ children }: PropsWithChildren) => {
   const session = await auth();
   return (
     <SessionProvider session={session}>
-      <div className='flex h-full items-center justify-center'>{children}</div>
+      <div
+        className='flex h-full flex-col items-center justify-center gap-1
+p-4'
+      >
+        <Navbar />
+        <Card className='w-full max-w-md'>
+          <CardContent className='flex flex-col gap-4 pt-6'>
+            {children}
+          </CardContent>
+        </Card>
+      </div>
     </SessionProvider>
   );
 };
