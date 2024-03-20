@@ -50,13 +50,9 @@ export const SignInForm = () => {
   const handleSubmit = (values: SignInValues) => {
     setError(null);
     startTransition(async () => {
-      try {
-        const res = await signIn(values);
-        if (!res.success) return setError(res.error);
-        if (res.twoFactor) setShowTwoFactor(true);
-      } catch {
-        setError('Failed to sign you in.');
-      }
+      const res = await signIn(values);
+      if (!res.success) return setError(res.error);
+      if (res.twoFactor) setShowTwoFactor(true);
     });
   };
 
