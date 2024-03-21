@@ -71,3 +71,5 @@ export const {
     error: '/auth/error',
   },
 });
+
+export const getCurrentUser = async () => (await auth())?.user;
