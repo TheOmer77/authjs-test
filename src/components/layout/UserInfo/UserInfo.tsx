@@ -26,7 +26,11 @@ export const UserInfo = ({ user }: UserInfoProps) => (
               displayValue = value.toISOString();
               break;
             case typeof value === 'boolean':
-              displayValue = `${value.toString()[0].toUpperCase()}${value.toString().slice(1)}`;
+            case !!value && key === 'role':
+              displayValue = `${value.toString()[0].toUpperCase()}${value
+                .toString()
+                .slice(1)
+                .toLowerCase()}`;
               break;
             case value === null || typeof value === 'undefined':
               displayValue = 'None';
