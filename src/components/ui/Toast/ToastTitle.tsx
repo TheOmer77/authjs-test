@@ -15,7 +15,7 @@ export const ToastTitle = forwardRef<
 >(({ className, ...props }, ref) => (
   <Title
     ref={ref}
-    className={cn('text-sm font-semibold', className)}
+    className={cn('text-sm font-semibold [&+div]:text-xs', className)}
     {...props}
   />
 ));
