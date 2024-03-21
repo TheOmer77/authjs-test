@@ -1,21 +1,19 @@
-'use client';
-
+import { ClientPageContent } from './content';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { UserInfo } from '@/components/layout/UserInfo';
-import { useCurrentUser } from '@/hooks/useCurrentUser';
 
-const ClientPage = () => {
-  const user = useCurrentUser();
-  return (
-    <>
-      <CardHeader>
-        <CardTitle>Client component</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <UserInfo user={user} />
-      </CardContent>
-    </>
-  );
-};
+export const metadata = { title: 'Client page' };
+
+const ClientPage = () => (
+  <>
+    <CardHeader>
+      <CardTitle>Client page</CardTitle>
+    </CardHeader>
+    <CardContent>
+      {/* Exporting metadata is not allowed in client components, so the
+      client stuff in this page was moved to its own client component. */}
+      <ClientPageContent />
+    </CardContent>
+  </>
+);
 
 export default ClientPage;
