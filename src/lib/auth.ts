@@ -10,6 +10,7 @@ import authConfig from '@/config/auth';
 declare module 'next-auth' {
   interface User {
     role: UserRole;
+    twofactor_enabled: boolean;
   }
 }
 
@@ -49,12 +50,15 @@ export const {
       if (!existingUser) return token;
 
       token.role = existingUser.role;
+      token.twofactor_enabled = existingUser.twofactor_enabled;
       return token;
     },
     session: async ({ token, session }) => {
       if (token.sub && session.user) session.user.id = token.sub;
       if (token.role && session.user)
         session.user.role = token.role as UserRole;
+      if (typeof token.twofactor_enabled === 'boolean' && session.user)
+        session.user.twofactor_enabled = token.twofactor_enabled;
       return session;
     },
   },
