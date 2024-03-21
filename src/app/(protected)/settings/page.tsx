@@ -1,17 +1,8 @@
-'use client';
-
-import { UserInfo } from '@/components/layout/UserInfo';
-import { useCurrentUser } from '@/hooks/useCurrentUser';
-
-const SettingsPage = () => {
-  const user = useCurrentUser();
-
-  return (
-    <>
-      <p>Settings page TBD. In the meantime, here&apos;s your user info:</p>
-      <UserInfo user={user} />
-    </>
-  );
-};
+const SettingsPage = () => (
+  <p>
+    Settings page TBD. In the meantime, check your user info in the server &
+    client pages.
+  </p>
+);
 
 export default SettingsPage;
