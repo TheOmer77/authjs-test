@@ -3,6 +3,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import type { UserRole } from '@prisma/client';
 
 import { db } from './db';
+import { getAccount } from '@/db/account';
 import { getUser } from '@/db/user';
 import { getTwoFactorConfirmation } from '@/db/twoFactorConfirmation';
 import authConfig from '@/config/auth';
@@ -11,6 +12,7 @@ declare module 'next-auth' {
   interface User {
     role: UserRole;
     twofactor_enabled: boolean;
+    oauth: boolean;
   }
 }
 
@@ -49,16 +51,25 @@ export const {
       const existingUser = await getUser({ id: token.sub });
       if (!existingUser) return token;
 
+      const existingAccount = await getAccount({ userId: existingUser.id });
+      token.oauth = !!existingAccount;
+
+      token.name = existingUser.name;
+      token.email = existingUser.email;
       token.role = existingUser.role;
       token.twofactor_enabled = existingUser.twofactor_enabled;
       return token;
     },
     session: async ({ token, session }) => {
-      if (token.sub && session.user) session.user.id = token.sub;
-      if (token.role && session.user)
-        session.user.role = token.role as UserRole;
-      if (typeof token.twofactor_enabled === 'boolean' && session.user)
-        session.user.twofactor_enabled = token.twofactor_enabled;
+      if (session.user) {
+        if (token.sub) session.user.id = token.sub;
+        if (token.name) session.user.name = token.name;
+        if (token.email) session.user.email = token.email;
+        if (token.role) session.user.role = token.role as UserRole;
+        if (typeof token.oauth === 'boolean') session.user.oauth = token.oauth;
+        if (typeof token.twofactor_enabled === 'boolean')
+          session.user.twofactor_enabled = token.twofactor_enabled;
+      }
       return session;
     },
   },
