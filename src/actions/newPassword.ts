@@ -21,7 +21,7 @@ export const newPassword = async (
   const existingToken = await getPasswordResetToken({ token });
   if (!existingToken) return { success: false, error: 'Token does not exist.' };
 
-  const expired = existingToken.expires_at.valueOf() < new Date().valueOf();
+  const expired = existingToken.expiresAt.valueOf() < new Date().valueOf();
   if (expired)
     return {
       success: false,

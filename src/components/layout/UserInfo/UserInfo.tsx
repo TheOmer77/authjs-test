@@ -7,7 +7,7 @@ const displayedProperties = {
   email: 'Email',
   role: 'Role',
   image: 'Image',
-  twofactor_enabled: '2FA enabled',
+  twoFactorEnabled: '2FA enabled',
 } as const satisfies Partial<Record<keyof User, string>>;
 
 type UserInfoProps = {

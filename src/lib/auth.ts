@@ -11,7 +11,7 @@ import authConfig from '@/config/auth';
 declare module 'next-auth' {
   interface User {
     role: UserRole;
-    twofactor_enabled: boolean;
+    twoFactorEnabled: boolean;
     oauth: boolean;
   }
 }
@@ -30,9 +30,9 @@ export const {
       if (account?.provider !== 'credentials') return true;
 
       const existingUser = await getUser({ id: user.id });
-      if (!existingUser?.email_verified) return false;
+      if (!existingUser?.emailVerified) return false;
 
-      if (existingUser.twofactor_enabled) {
+      if (existingUser.twoFactorEnabled) {
         const existingConfirmation = await getTwoFactorConfirmation({
           user_id: existingUser.id,
         });
@@ -57,7 +57,7 @@ export const {
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
-      token.twofactor_enabled = existingUser.twofactor_enabled;
+      token.twoFactorEnabled = existingUser.twoFactorEnabled;
       return token;
     },
     session: async ({ token, session }) => {
@@ -67,8 +67,8 @@ export const {
         if (token.email) session.user.email = token.email;
         if (token.role) session.user.role = token.role as UserRole;
         if (typeof token.oauth === 'boolean') session.user.oauth = token.oauth;
-        if (typeof token.twofactor_enabled === 'boolean')
-          session.user.twofactor_enabled = token.twofactor_enabled;
+        if (typeof token.twoFactorEnabled === 'boolean')
+          session.user.twoFactorEnabled = token.twoFactorEnabled;
       }
       return session;
     },
@@ -77,7 +77,7 @@ export const {
     linkAccount: async ({ user }) => {
       await db.user.update({
         where: { id: user.id },
-        data: { email_verified: new Date() },
+        data: { emailVerified: new Date() },
       });
     },
   },

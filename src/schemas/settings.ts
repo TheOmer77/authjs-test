@@ -10,7 +10,7 @@ export const settingsSchema = z
     name: z.optional(z.string()),
     email: z.optional(z.string().email({ message: 'Invalid email.' })),
     role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER])),
-    twofactor_enabled: z.optional(z.boolean()),
+    twoFactorEnabled: z.optional(z.boolean()),
 
     password,
     newPassword: password,

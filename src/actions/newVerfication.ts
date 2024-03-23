@@ -10,7 +10,7 @@ export const newVerification = async (
   const existingToken = await getVerificationToken({ token });
   if (!existingToken) return { success: false, error: 'Token does not exist.' };
 
-  const expired = existingToken.expires_at.valueOf() < new Date().valueOf();
+  const expired = existingToken.expiresAt.valueOf() < new Date().valueOf();
   if (expired)
     return {
       success: false,
@@ -27,7 +27,7 @@ export const newVerification = async (
 
   await db.user.update({
     where: { id: existingUser.id },
-    data: { email_verified: new Date(), email: existingToken.email },
+    data: { emailVerified: new Date(), email: existingToken.email },
   });
   await db.verificationToken.delete({ where: { id: existingToken.id } });
   return { success: true };

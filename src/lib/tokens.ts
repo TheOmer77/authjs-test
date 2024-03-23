@@ -14,11 +14,11 @@ export const generateVerificationToken = async (email: string) => {
   if (existingToken)
     return await db.verificationToken.update({
       where: { id: existingToken.id },
-      data: { token, expires_at: expiresAt },
+      data: { token, expiresAt: expiresAt },
     });
 
   return await db.verificationToken.create({
-    data: { email, token, expires_at: expiresAt },
+    data: { email, token, expiresAt: expiresAt },
   });
 };
 
@@ -30,11 +30,11 @@ export const generatePasswordResetToken = async (email: string) => {
   if (existingToken)
     return await db.passwordResetToken.update({
       where: { id: existingToken.id },
-      data: { token, expires_at: expiresAt },
+      data: { token, expiresAt: expiresAt },
     });
 
   return await db.passwordResetToken.create({
-    data: { email, token, expires_at: expiresAt },
+    data: { email, token, expiresAt: expiresAt },
   });
 };
 
@@ -46,10 +46,10 @@ export const generateTwoFactorToken = async (email: string) => {
   if (existingToken)
     return await db.twoFactorToken.update({
       where: { id: existingToken.id },
-      data: { token, expires_at: expiresAt },
+      data: { token, expiresAt: expiresAt },
     });
 
   return await db.twoFactorToken.create({
-    data: { email, token, expires_at: expiresAt },
+    data: { email, token, expiresAt: expiresAt },
   });
 };

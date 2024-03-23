@@ -162,7 +162,7 @@ const SettingsForm = () => {
           />
           <FormField
             control={form.control}
-            name='twofactor_enabled'
+            name='twoFactorEnabled'
             render={({ field }) => (
               <FormItem
                 className='flex flex-row items-center justify-between space-y-0

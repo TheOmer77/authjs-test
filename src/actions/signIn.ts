@@ -30,12 +30,12 @@ export const signIn = async (
   const existingUser = await getUser({ email });
   if (!existingUser || !existingUser.email || !existingUser.password)
     return { success: false, error: 'Incorrect email or password.' };
-  if (!existingUser.email_verified) {
+  if (!existingUser.emailVerified) {
     const existingVerificationToken = await getVerificationToken({ email });
     // Only create new token if current one is missing or expired
     if (
       !existingVerificationToken ||
-      existingVerificationToken.expires_at.valueOf() < new Date().valueOf()
+      existingVerificationToken.expiresAt.valueOf() < new Date().valueOf()
     ) {
       const newVerificationToken = await generateVerificationToken(
         existingUser.email
@@ -57,7 +57,7 @@ export const signIn = async (
     };
   }
 
-  if (existingUser.twofactor_enabled && existingUser.email) {
+  if (existingUser.twoFactorEnabled && existingUser.email) {
     if (!twoFactorCode) {
       const twoFactorToken = await generateTwoFactorToken(existingUser.email);
       await sendTwoFactorEmail(twoFactorToken.email, twoFactorToken.token);
@@ -68,7 +68,7 @@ export const signIn = async (
     });
     if (!twoFactorToken || twoFactorToken.token !== twoFactorCode)
       return { success: false, error: 'Incorrect code.' };
-    if (twoFactorToken.expires_at.valueOf() < new Date().valueOf())
+    if (twoFactorToken.expiresAt.valueOf() < new Date().valueOf())
       return { success: false, error: 'Code expired.' };
 
     await db.twoFactorToken.delete({ where: { id: twoFactorToken.id } });
