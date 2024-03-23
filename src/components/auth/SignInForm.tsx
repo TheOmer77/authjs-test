@@ -33,6 +33,7 @@ import { signInSchema, type SignInValues } from '@/schemas/auth';
 
 export const SignInForm = () => {
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
   const urlError =
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? 'A user with this email already exists.'
@@ -50,7 +51,7 @@ export const SignInForm = () => {
   const handleSubmit = (values: SignInValues) => {
     setError(null);
     startTransition(async () => {
-      const res = await signIn(values);
+      const res = await signIn(values, callbackUrl);
       if (!res.success) return setError(res.error);
       if (res.twoFactor) setShowTwoFactor(true);
     });

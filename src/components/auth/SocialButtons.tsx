@@ -6,14 +6,17 @@ import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui/Button';
 import { GithubLogo, GoogleLogo } from '@/components/layout/logos';
 import { DEFAULT_SIGNIN_REDIRECT } from '@/config/routes';
+import { useSearchParams } from 'next/navigation';
 
 export type SocialButtonsProps = ComponentPropsWithoutRef<'button'> & {
   title?: string;
 };
 
 export const SocialButtons = ({ title, ...props }: SocialButtonsProps) => {
+  const searchParams = useSearchParams(),
+    callbackUrl = searchParams.get('callbackUrl');
   const handleClick = (provider: 'google' | 'github') => {
-    signIn(provider, { callbackUrl: DEFAULT_SIGNIN_REDIRECT });
+    signIn(provider, { callbackUrl: callbackUrl || DEFAULT_SIGNIN_REDIRECT });
   };
 
   return (

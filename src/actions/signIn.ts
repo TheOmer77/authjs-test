@@ -17,7 +17,8 @@ import { signInSchema, type SignInValues } from '@/schemas/auth';
 import { DEFAULT_SIGNIN_REDIRECT } from '@/config/routes';
 
 export const signIn = async (
-  values: SignInValues
+  values: SignInValues,
+  callbackUrl?: string | null
 ): Promise<
   { success: true; twoFactor?: true } | { success: false; error: string }
 > => {
@@ -88,7 +89,7 @@ export const signIn = async (
     await authSignIn('credentials', {
       email,
       password,
-      redirectTo: DEFAULT_SIGNIN_REDIRECT,
+      redirectTo: callbackUrl || DEFAULT_SIGNIN_REDIRECT,
     });
     return { success: true };
   } catch (error) {
