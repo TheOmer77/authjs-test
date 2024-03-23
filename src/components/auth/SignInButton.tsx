@@ -2,6 +2,7 @@
 
 import type { PropsWithChildren } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { Slot } from '@radix-ui/react-slot';
 
 import { SignInForm } from './SignInForm';
@@ -16,8 +17,9 @@ export const SignInButton = ({
   children,
 }: LoginButtonProps) => {
   const router = useRouter();
+  const session = useSession();
 
-  if (mode === 'modal')
+  if (mode === 'modal' && session.status !== 'authenticated')
     return (
       <Dialog>
         <DialogTrigger asChild>{children}</DialogTrigger>
