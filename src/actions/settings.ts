@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 import { settingsSchema, type SettingsValues } from '@/schemas/settings';
 import { getUser } from '@/db/user';
-import { getCurrentUser } from '@/lib/auth';
+import { getCurrentUser, update } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
@@ -60,9 +60,17 @@ export const settings = async (
     validatedValues.data.newPassword = undefined;
   }
 
-  await db.user.update({
+  const updatedUser = await db.user.update({
     where: { id: dbUser.id },
     data: validatedValues.data,
+  });
+  await update({
+    user: {
+      email: updatedUser.email,
+      name: updatedUser.name,
+      role: updatedUser.role,
+      twoFactorEnabled: updatedUser.twoFactorEnabled,
+    },
   });
   return { success: true };
 };
