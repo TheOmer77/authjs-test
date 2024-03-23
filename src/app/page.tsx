@@ -6,7 +6,7 @@ const Home = () => (
   <main className='flex h-full flex-col items-center justify-center'>
     <div className='space-y-6 text-center'>
       <AppLogo className='text-6xl text-white drop-shadow-md' />
-      <SignInButton>
+      <SignInButton mode='modal'>
         <Button
           variant='secondary'
           size='lg'
