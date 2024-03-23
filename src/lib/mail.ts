@@ -2,9 +2,9 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.MAIL_RESEND_API_KEY);
 
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+
 export const sendVerificationEmail = async (email: string, token: string) => {
-  // TODO: Get dynamic base URL
-  const baseUrl = 'http://localhost:3000';
   const link = `${baseUrl}/auth/new-verification?token=${token}`;
 
   await resend.emails.send({
@@ -16,8 +16,6 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  // TODO: Get dynamic base URL
-  const baseUrl = 'http://localhost:3000';
   const link = `${baseUrl}/auth/new-password?token=${token}`;
 
   await resend.emails.send({
