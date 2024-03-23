@@ -21,7 +21,7 @@ tracking-tight text-primary`,
     )}
   >
     <LockIcon className='size-[3.25em]' strokeWidth={1.5} />
-    <div className='flex flex-col items-start leading-none'>
+    <div className='flex flex-col items-start pe-4 leading-none'>
       <span>The</span>
       <span>Auth</span>
       <span>Thing</span>
