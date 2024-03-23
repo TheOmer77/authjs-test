@@ -16,10 +16,19 @@ import {
   FormMessage,
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/Select';
+import { Switch } from '@/components/ui/Switch';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useToast } from '@/hooks/useToast';
 import { settings } from '@/actions/settings';
 import { settingsSchema, type SettingsValues } from '@/schemas/settings';
-import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { UserRole } from '@prisma/client';
 
 const SettingsForm = () => {
   const currentUser = useCurrentUser();
@@ -27,9 +36,13 @@ const SettingsForm = () => {
   const { update } = useSession();
   const { displayToast } = useToast();
 
-  const form = useForm({
+  const form = useForm<SettingsValues>({
     resolver: zodResolver(settingsSchema),
-    defaultValues: { name: currentUser?.name || undefined },
+    defaultValues: {
+      name: currentUser?.name || undefined,
+      email: currentUser?.email || undefined,
+      role: currentUser?.role || undefined,
+    },
   });
 
   const handleSubmit = (values: SettingsValues) => {
@@ -47,7 +60,7 @@ const SettingsForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <CardContent>
+        <CardContent className='[&>:not(:last-child)]:mb-2'>
           <FormField
             control={form.control}
             name='name'
@@ -62,6 +75,109 @@ const SettingsForm = () => {
                   />
                 </FormControl>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='email'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    value={field.value || ''}
+                    type='email'
+                    disabled={isPending}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    value={field.value || ''}
+                    type='password'
+                    disabled={isPending}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='newPassword'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>New password</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    value={field.value || ''}
+                    type='password'
+                    disabled={isPending}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='role'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Role</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  disabled={isPending}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Role' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.keys(UserRole).map(key => (
+                      <SelectItem key={key} value={key}>
+                        {`${key[0].toUpperCase()}${key.slice(1).toLowerCase()}`}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='twofactor_enabled'
+            render={({ field }) => (
+              <FormItem
+                className='flex flex-row items-center justify-between space-y-0
+py-4'
+              >
+                <div className='space-y-0.5'>
+                  <FormLabel>Enable 2FA</FormLabel>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    disabled={isPending}
+                  />
+                </FormControl>
               </FormItem>
             )}
           />
