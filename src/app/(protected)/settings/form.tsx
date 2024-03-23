@@ -42,6 +42,7 @@ const SettingsForm = () => {
       name: currentUser?.name || undefined,
       email: currentUser?.email || undefined,
       role: currentUser?.role || undefined,
+      twoFactorEnabled: currentUser?.twoFactorEnabled || undefined,
     },
   });
 
@@ -53,7 +54,11 @@ const SettingsForm = () => {
         return;
       }
       update();
-      displayToast('User updated successfully.');
+      displayToast(
+        res.verificationSent
+          ? 'A verification link was sent to your new email.'
+          : 'User updated successfully.'
+      );
     });
   };
 
@@ -178,7 +183,7 @@ space-y-0'
                   </div>
                   <FormControl>
                     <Switch
-                      checked={field.value}
+                      checked={field.value || false}
                       onCheckedChange={field.onChange}
                       disabled={isPending}
                     />
