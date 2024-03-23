@@ -13,6 +13,13 @@ export const settings = async (
   const dbUser = await getUser({ id: currentUser.id });
   if (!dbUser) return { success: false, error: 'Unauthorized' };
 
+  if (currentUser.oauth) {
+    values.email = undefined;
+    values.password = undefined;
+    values.newPassword = undefined;
+    values.twoFactorEnabled = undefined;
+  }
+
   const validatedValues = settingsSchema.safeParse(values);
   if (!validatedValues.success)
     return { success: false, error: validatedValues.error.message };
