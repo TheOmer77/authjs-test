@@ -4,7 +4,9 @@ const AuthErrorPage = () => (
   <>
     <CardHeader>
       <CardTitle>Couldn&apos;t sign you in</CardTitle>
-      <CardDescription>Error description goes here... TBD</CardDescription>
+      <CardDescription>
+        Something went wrong while trying to sign you in.
+      </CardDescription>
     </CardHeader>
   </>
 );
